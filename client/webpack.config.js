@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const glob = require('glob');
 
 const devBuild = process.env.NODE_ENV !== 'production';
 const nodeEnv = devBuild ? 'development' : 'production';
@@ -9,8 +10,7 @@ const config = {
     'es5-shim/es5-shim',
     'es5-shim/es5-sham',
     'babel-polyfill',
-    './app/bundles/HelloWorld/startup/HelloWorldApp',
-  ],
+  ].concat(glob.sync("./app/bundles/**/startup/*")),
 
   output: {
     filename: 'webpack-bundle.js',

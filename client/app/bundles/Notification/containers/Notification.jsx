@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import HelloWorldWidget from '../components/HelloWorldWidget';
+import NotificationWidget from '../components/NotificationWidget';
 
 // Simple example of a React "smart" component
-export default class HelloWorld extends React.Component {
+export default class Notification extends React.Component {
   static propTypes = {
     name: PropTypes.string.isRequired, // this is passed from the Rails view
   };
@@ -22,7 +22,7 @@ export default class HelloWorld extends React.Component {
   render() {
     return (
       <div>
-        <HelloWorldWidget name={this.state.name} updateName={e => this.updateName(e)} />
+        <NotificationWidget name={this.state.name} updateName={e => this.updateName(e)} />
       </div>
     );
   }
