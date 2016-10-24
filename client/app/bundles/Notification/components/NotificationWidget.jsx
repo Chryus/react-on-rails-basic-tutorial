@@ -1,5 +1,5 @@
-// NotificationWidget is an arbitrary name for any "dumb" component. We do not recommend suffixing
-// all your dump component names with Widget.
+// NotificationWidget is an arbitrary notifications for any "dumb" component. We do not recommend suffixing
+// all your dump component notificationss with Widget.
 
 import React, { PropTypes } from 'react';
 
@@ -8,23 +8,25 @@ export default class NotificationWidget extends React.Component {
   static propTypes = {
     // If you have lots of data or action properties, you should consider grouping them by
     // passing two properties: "data" and "actions".
-    updateName: PropTypes.func.isRequired,
-    name: PropTypes.string.isRequired,
+    updateNotifications: PropTypes.func.isRequired,
+    notifications: PropTypes.string.isRequired,
   };
 
   // React will automatically provide us with the event `e`
   // handleChange(e) {
-  //   const name = e.target.value;
-  //   this.props.updateName(name);
+  //   const notifications = e.target.value;
+  //   this.props.updateNotifications(notifications);
   // }
 
   render() {
-    const { name } = this.props;
+    const { notifications } = this.props;
+    var parsedNotifications = JSON.parse(notifications);
+    
     return (
-      <div className="container">
-        <h3>
-          Hello, {name}!
-        </h3>
+      <ul className="container">
+        {parsedNotifications.map(function(value){
+          return <li key={value.id}>{value.template}</li>;
+        })}
         <hr />
         <form className="form-horizontal">
           <label>
@@ -32,11 +34,11 @@ export default class NotificationWidget extends React.Component {
           </label>
           <input
             type="text"
-            value={name}
+            value={notifications}
             onChange={e => this.handleChange(e)}
           />
         </form>
-      </div>
+      </ul>
     );
   }
 }
