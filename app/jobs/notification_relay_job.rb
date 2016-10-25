@@ -1,8 +1,10 @@
+require 'byebug'
+
 class NotificationRelayJob < ApplicationJob
   queue_as :default
 
   def perform(notification)
-    notification = ApplicationController.render partial: "notifications/#{notification.notifiable_type.underscore.pluralize}/#{notification.action}", locals: {notification: notification}
-    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", notification: notification
+    response = ApplicationController.render template: "notifications/notification.json.jbuilder", locals: {notification: notification}, formats: [:json]
+    ActionCable.server.broadcast "notifications:#{notification.recipient_id}", { notification: response }
   end
 end

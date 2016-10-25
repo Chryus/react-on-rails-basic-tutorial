@@ -14,12 +14,13 @@ export default class Notification extends React.Component {
     // How to set initial state in ES6 class syntax
     // https://facebook.github.io/react/docs/reusable-components.html#es6-classes
     this.state = { notifications: this.props.notifications };
-    this.setupSubscription();
+    this.setupSubscription(this);
   }
 
   updateNotificationList(notification) {
-    this.state.notifications.push(notification)
-    this.setState({ notifications });
+    var notification = JSON.parse(notification);
+    var newNotifications = JSON.parse(this.state.notifications).concat(notification);
+    this.setState({notifications: JSON.stringify(newNotifications)});
   }
 
   render() {
@@ -30,11 +31,8 @@ export default class Notification extends React.Component {
     );
   }
 
-
-
-  setupSubscription() {
+  setupSubscription(outerScope) {
     console.log("CALLED SETUP Subscription")
-    console.log(App.cable)
 
     App.notifications = App.cable.subscriptions.create("NotificationsChannel", {
       connected: function() {
@@ -51,11 +49,10 @@ export default class Notification extends React.Component {
       },
 
       received: function(data) {
-        console.log("DATA" + data)
-        this.updateNotificationList(data.notification);
+        outerScope.updateNotificationList(data.notification);
       },
 
-      updateNotificationList: this.updateNotificationList
+      //updateNotificationList: this.updateNotificationList
     });
   }
 }
