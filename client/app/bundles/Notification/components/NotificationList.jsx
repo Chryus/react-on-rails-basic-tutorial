@@ -8,15 +8,15 @@ export default class NotificationWidget extends React.Component {
   static propTypes = {
     // If you have lots of data or action properties, you should consider grouping them by
     // passing two properties: "data" and "actions".
-    updateNotifications: PropTypes.func.isRequired,
+    updateNotificationList: PropTypes.func.isRequired,
     notifications: PropTypes.string.isRequired,
   };
 
-  // React will automatically provide us with the event `e`
-  // handleChange(e) {
-  //   const notifications = e.target.value;
-  //   this.props.updateNotifications(notifications);
-  // }
+  //React will automatically provide us with the event `e`
+  handleChange(e) {
+    const notifications = e.target.value;
+    this.props.updateNotificationList(notifications);
+  }
 
   render() {
     const { notifications } = this.props;

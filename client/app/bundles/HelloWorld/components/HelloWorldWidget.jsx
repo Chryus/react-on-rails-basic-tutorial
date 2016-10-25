@@ -1,6 +1,9 @@
 // HelloWorldWidget is an arbitrary name for any "dumb" component. We do not recommend suffixing
 // all your dump component names with Widget.
 
+// I call components encapsulated React components that are driven solely by props and don't
+// talk to Redux. Same as “dumb components”. They should stay the same regardless of your router, data fetching library, etc.
+
 import React, { PropTypes } from 'react';
 
 // Simple example of a React "dumb" component

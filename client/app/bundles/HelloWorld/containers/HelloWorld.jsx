@@ -1,3 +1,7 @@
+// I call containers React components that are aware of Redux, Router, etc. 
+// They are more coupled to the app. Same as “smart components”.
+// That have access to context
+
 import React, { PropTypes } from 'react';
 import HelloWorldWidget from '../components/HelloWorldWidget';
 
